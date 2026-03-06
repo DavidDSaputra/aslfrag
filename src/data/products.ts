@@ -11,8 +11,8 @@ export interface Product {
 
 export const products: Product[] = [
     {
-        id: "noir-absolute",
-        name: "Noir Absolute",
+        id: "icarus-velixir",
+        name: "Icarus Velixir",
         image: "/images/produk1.jpeg",
         notes: ["Oud", "Black Pepper", "Leather"],
         description: "Perpaduan yang dalam dan tak kenal kompromi dari kayu gelap dan rempah-rempah. Untuk mereka yang menguasai ruangan.",
@@ -21,8 +21,8 @@ export const products: Product[] = [
         gender: "Unisex"
     },
     {
-        id: "blanche-minimal",
-        name: "Blanche Minimal",
+        id: "agra-blanche",
+        name: "Agra Blanche",
         image: "/images/model1.jpeg",
         notes: ["White Rose", "Musk", "Bergamot"],
         description: "Bersih, tak terlihat, namun mustahil untuk diabaikan. Aroma kemurnian absolut.",
@@ -31,8 +31,8 @@ export const products: Product[] = [
         gender: "Women"
     },
     {
-        id: "vert-sauvage",
-        name: "Vert Sauvage",
+        id: "agra-vert",
+        name: "Agra Vert",
         image: "/images/model2.jpeg",
         notes: ["Vetiver", "Pine", "Moss"],
         description: "Alam liar yang tertangkap dalam botol. Tajam, hijau, dan menyegarkan.",
@@ -41,8 +41,8 @@ export const products: Product[] = [
         gender: "Men"
     },
     {
-        id: "rouge-velvet",
-        name: "Rouge Velvet",
+        id: "agra-rouge",
+        name: "Agra Rouge",
         image: "/images/model3.jpeg",
         notes: ["Saffron", "Vanilla", "Amber"],
         description: "Nektar manis yang memabukkan dan mewah, yang bertahan lama setelah Anda pergi.",
@@ -51,8 +51,8 @@ export const products: Product[] = [
         gender: "Unisex"
     },
     {
-        id: "midnight-smoke",
-        name: "Midnight Smoke",
+        id: "agra-midnight",
+        name: "Agra Midnight",
         image: "/images/model4.jpeg",
         notes: ["Tobacco", "Incense", "Patchouli"],
         description: "Misterius dan berani. Teman sempurna untuk jam-jam tengah malam.",
@@ -61,8 +61,8 @@ export const products: Product[] = [
         gender: "Men"
     },
     {
-        id: "lumiere",
-        name: "Lumière",
+        id: "agra-lumiere",
+        name: "Agra Lumière",
         image: "/images/section.jpeg",
         notes: ["Neroli", "Jasmine", "Citrus"],
         description: "Ledakan cahaya keemasan. Segar, floral, dan sangat mengangkat semangat.",

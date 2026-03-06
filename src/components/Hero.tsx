@@ -46,7 +46,7 @@ export default function Hero() {
                     src="/images/produk1.jpeg"
                     alt="Floating Bottle"
                     fill
-                    className="object-cover rounded-sm shadow-2xl"
+                    className="object-contain drop-shadow-lg"
                 />
             </motion.div>
 
