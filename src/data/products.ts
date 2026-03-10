@@ -69,5 +69,55 @@ export const products: Product[] = [
         price: 175,
         category: "Floral",
         gender: "Unisex"
-    }
+    },
+    {
+        id: "icarus-noir",
+        name: "Icarus Noir",
+        image: "/images/model5.jpeg",
+        notes: ["Oud", "Black Pepper", "Leather"],
+        description: "Perpaduan yang dalam dan tak kenal kompromi dari kayu gelap dan rempah-rempah. Untuk mereka yang menguasai ruangan.",
+        price: 242,
+        category: "Woody",
+        gender: "Unisex"
+    },
+    {
+        id: "tropical-mirage",
+        name: "Tropical Mirage",
+        image: "/images/model6.jpeg",
+        notes: ["Passionfruit", "Coconut", "Jasmine"],
+        description: "Perpaduan buah tropis yang eksotis dengan sentuhan kelapa lembut, menciptakan aroma yang playful dan memikat.",
+        price: 210,
+        category: "Fresh",
+        gender: "Unisex"
+    },
+    {
+        id: "boreal-timber",
+        name: "Boreal Timber",
+        image: "/images/model7.jpeg",
+        notes: ["Cedarwood", "Sandalwood", "Vetiver"],
+        description:"Perpaduan kayu cedar yang hangat dengan sandalwood lembut dan vetiver yang earthy, memberikan kesan maskulin dan elegan.",
+        price: 267,
+        category: "Woody",
+        gender: "Men"
+    },
+    {
+        id: "verdant-pear",
+        name: "Verdant Pear",
+        image: "/images/model8.jpeg",
+        notes: ["Pear", "Jasmine", "White Musk"],
+        description:"Aroma pear yang juicy dipadukan dengan jasmine yang floral dan green tea yang segar, diakhiri dengan white musk yang lembut.",
+        price: 240,
+        category: "Floral",
+        gender: "Women"
+    },
+    {
+        id: "lavender-ember",
+        name: "Lavender Ember",
+        image: "/images/model9.jpeg",
+        notes: ["Lavender", "Clove", "Honey"],
+        description:"Lavender yang menenangkan berpadu dengan cengkeh yang hangat dan sedikit pedas. Sentuhan madu memberikan manis alami, sementara aroma daun kering menghadirkan nuansa earthy yang menenangkan.",
+        price: 222,
+        category: "Floral",
+        gender: "Women"
+    },
 ];
