@@ -16,6 +16,7 @@ export default function AdminPage() {
     features: "",
     description: "",
   });
+  const [file, setFile] = useState<File | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,10 +24,25 @@ export default function AdminPage() {
     setMessage("");
 
     try {
+      let finalImageUrl = formData.image;
+
+      if (file) {
+        const uploadData = new FormData();
+        uploadData.append("file", file);
+        const uploadRes = await fetch("/api/upload", {
+          method: "POST",
+          body: uploadData,
+        });
+
+        if (!uploadRes.ok) throw new Error("Failed to upload image");
+        const uploadResult = await uploadRes.json();
+        finalImageUrl = uploadResult.url;
+      }
+
       const res = await fetch("/api/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, image: finalImageUrl }),
       });
 
       if (!res.ok) throw new Error("Failed to create product");
@@ -41,6 +57,7 @@ export default function AdminPage() {
         features: "",
         description: "",
       });
+      setFile(null);
     } catch (error) {
       setMessage("Error adding product.");
     } finally {
@@ -93,16 +110,27 @@ export default function AdminPage() {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-xs uppercase tracking-[0.1em] text-brand-ink/80">Image URL Path</label>
-              <input
-                required
-                type="text"
-                className="w-full bg-brand-dark border border-brand-line rounded-lg px-4 py-3 text-sm text-brand-paper focus:outline-none focus:border-brand-accent"
-                value={formData.image}
-                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                placeholder="/images/mobil.jpeg"
-              />
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-xs uppercase tracking-[0.1em] text-brand-ink/80">Upload Image</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setFile(e.target.files?.[0] || null)}
+                  className="w-full bg-brand-dark border border-brand-line rounded-lg px-4 py-[9px] text-sm text-brand-paper focus:outline-none file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-brand-signal file:text-brand-dark hover:file:bg-orange-500"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs uppercase tracking-[0.1em] text-brand-ink/80">Or Image URL Path</label>
+                <input
+                  type="text"
+                  className="w-full bg-brand-dark border border-brand-line rounded-lg px-4 py-3 text-sm text-brand-paper focus:outline-none focus:border-brand-accent disabled:opacity-50"
+                  value={formData.image}
+                  disabled={!!file}
+                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                  placeholder="/images/mobil.jpeg"
+                />
+              </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
