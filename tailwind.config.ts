@@ -12,16 +12,16 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         brand: {
-          light: "#FFF2F2",
-          muted: "#A9B4D9", // Light periwinkle
-          accent: "#7886C7", // Indigo primary
-          dark: "#2A3158",  // Dark navy
-          white: "#ffffff",
+          light: "#09090b", // Deep asphalt background
+          muted: "#71717a", // Neutral grey
+          accent: "#dc2626", // Racing red
+          dark: "#18181b",  // Surface/card dark grey
+          white: "#fafafa",
         }
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        serif: ["var(--font-playfair)", "serif"],
+        sans: ["var(--font-sora)", "sans-serif"],
+        serif: ["var(--font-bebas)", "sans-serif"],
       }
     },
   },

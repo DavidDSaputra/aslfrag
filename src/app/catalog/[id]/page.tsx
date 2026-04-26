@@ -1,112 +1,107 @@
-"use client";
-
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
 import ProductCard from "@/components/ProductCard";
-import { products } from "@/data/products";
+import { prisma } from "@/lib/prisma";
 
-export default function ProductDetail({ params }: { params: { id: string } }) {
-    const product = products.find(p => p.id === params.id);
+export const dynamic = "force-dynamic";
 
-    if (!product) {
-        notFound();
-    }
+export default async function ProductDetail({ params }: { params: { id: string } }) {
+  const dbProduct = await prisma.product.findUnique({
+    where: { id: params.id },
+  });
 
-    const relatedProducts = products.filter(p => p.id !== product.id && p.category === product.category).slice(0, 3);
-    if (relatedProducts.length < 3) {
-        relatedProducts.push(...products.filter(p => p.id !== product.id && !relatedProducts.includes(p)).slice(0, 3 - relatedProducts.length));
-    }
+  if (!dbProduct) {
+    notFound();
+  }
 
-    return (
-        <main className="bg-brand-light min-h-screen text-brand-dark selection:bg-brand-accent selection:text-brand-light overflow-x-hidden">
-            <Navbar />
+  const product = {
+    ...dbProduct,
+    features: dbProduct.features.split(",").map((f) => f.trim()).filter(Boolean),
+  };
 
-            {/* Product Content */}
-            <section className="pt-32 lg:pt-48 pb-24 px-6 md:px-12 lg:px-24">
-                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24 relative">
+  const dbRelated = await prisma.product.findMany({
+    where: {
+      category: product.category,
+      id: { not: product.id },
+    },
+    take: 3,
+  });
 
-                    {/* Image Left */}
-                    <div className="w-full lg:w-1/2">
-                        <AnimatedSection className="relative aspect-[3/4] w-full bg-brand-white overflow-hidden group">
-                            <Image
-                                src={product.image}
-                                alt={product.name}
-                                fill
-                                priority
-                                className="object-cover transition-transform duration-[1.5s] group-hover:scale-110"
-                            />
-                        </AnimatedSection>
-                    </div>
+  const relatedProducts = dbRelated.map((p) => ({
+    ...p,
+    features: p.features.split(",").map((f) => f.trim()).filter(Boolean),
+  }));
 
-                    {/* Info Right */}
-                    <div className="w-full lg:w-1/2 lg:sticky lg:top-48 h-fit flex flex-col justify-center">
-                        <AnimatedSection delay={0.2}>
-                            <div className="mb-6 flex items-center justify-between">
-                                <span className="font-sans text-brand-dark/60 uppercase tracking-widest text-xs">
-                                    {product.category} • {product.gender}
-                                </span>
-                            </div>
+  return (
+    <main className="min-h-screen">
+      <Navbar />
 
-                            <h1 className="text-4xl md:text-6xl font-serif mb-6 leading-tight tracking-wide">
-                                {product.name}
-                            </h1>
+      <section className="pt-36 md:pt-44 px-5 md:px-10 pb-14 md:pb-20">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          <AnimatedSection className="relative aspect-[4/5] rounded-[2rem] overflow-hidden border border-brand-line bg-brand-card">
+            <Image src={product.image} alt={product.name} fill priority className="object-cover" />
+          </AnimatedSection>
 
-                            <p className="text-2xl font-sans text-brand-accent mb-10 tracking-wider">
-                                ${product.price}
-                            </p>
+          <AnimatedSection delay={0.1} className="rounded-[2rem] border border-brand-line bg-brand-card/80 p-6 md:p-8 lg:sticky lg:top-32">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-brand-accent">
+              {product.category} / Scale {product.scale}
+            </p>
+            <h1 className="mt-3 font-serif text-brand-paper text-[clamp(2.4rem,6vw,5.2rem)] leading-[0.92]">
+              {product.name}
+            </h1>
+            <p className="mt-2 text-brand-signal text-xl md:text-2xl font-semibold">${product.price}</p>
 
-                            <div className="mb-12 font-sans text-lg md:text-xl font-light leading-relaxed text-brand-dark/80">
-                                <p>{product.description}</p>
-                            </div>
+            <p className="mt-5 text-sm md:text-base text-brand-ink/75 leading-relaxed">{product.description}</p>
 
-                            <div className="mb-12 border-y border-brand-accent/20 py-8">
-                                <h3 className="font-sans text-sm uppercase tracking-widest text-brand-dark mb-6">
-                                    Komposisi Aroma
-                                </h3>
-                                <div className="flex flex-wrap gap-4">
-                                    {product.notes.map(note => (
-                                        <span key={note} className="px-5 py-2 border border-brand-accent/20 text-brand-dark/80 font-sans text-xs uppercase tracking-widest rounded-full">
-                                            {note}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {product.features.map((feature) => (
+                <span
+                  key={feature}
+                  className="px-3 py-2 rounded-full border border-brand-line text-[11px] uppercase tracking-[0.15em] text-brand-ink/75"
+                >
+                  {feature}
+                </span>
+              ))}
+            </div>
 
-                            <button className="w-full bg-brand-dark text-brand-light py-5 font-sans uppercase tracking-[0.2em] text-sm hover:bg-brand-accent hover:text-brand-light transition-all duration-500">
-                                Masukkan ke Keranjang
-                            </button>
+            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+              <button
+                type="button"
+                className="rounded-full bg-brand-signal text-brand-dark px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] hover:bg-orange-400 transition-colors"
+              >
+                Add to Cart
+              </button>
+              <button
+                type="button"
+                className="rounded-full border border-brand-line text-brand-paper px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] hover:border-brand-accent hover:text-brand-accent transition-colors"
+              >
+                Save Wishlist
+              </button>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
 
-                            <div className="mt-8 text-center text-xs font-sans text-brand-dark/50 tracking-widest uppercase">
-                                Gratis ongkir untuk semua pesanan di atas $200
-                            </div>
-                        </AnimatedSection>
-                    </div>
-                </div>
-            </section>
+      <section className="px-5 md:px-10 pb-20">
+        <div className="max-w-7xl mx-auto">
+          <AnimatedSection>
+            <h2 className="font-serif text-brand-paper text-[clamp(2rem,5vw,4.6rem)] leading-none">Related Picks</h2>
+          </AnimatedSection>
 
-            {/* Related Products */}
-            <section className="py-24 px-6 md:px-12 lg:px-24 bg-brand-dark border-t border-brand-dark/50">
-                <div className="max-w-7xl mx-auto">
-                    <AnimatedSection>
-                        <h2 className="text-4xl md:text-5xl font-serif text-brand-light mb-16 tracking-wider">
-                            Anda Mungkin Juga Suka
-                        </h2>
-                    </AnimatedSection>
+          <div className="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-[1px] bg-white/5 border-y border-white/5">
+            {relatedProducts.map((item, index) => (
+              <AnimatedSection key={item.id} delay={index * 0.07} className="bg-brand-light">
+                <ProductCard product={item} />
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
-                        {relatedProducts.map((product, index) => (
-                            <AnimatedSection key={product.id} delay={index * 0.2}>
-                                <ProductCard product={product} />
-                            </AnimatedSection>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            <Footer />
-        </main>
-    );
+      <Footer />
+    </main>
+  );
 }

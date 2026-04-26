@@ -1,89 +1,96 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, ShoppingCart, X } from "lucide-react";
 import clsx from "clsx";
 
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/catalog", label: "Diecast Collections" },
+  { href: "/catalog", label: "Acrylic Collections" },
+  { href: "/about", label: "Diecast Blog" },
+];
+
 export default function Navbar() {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 30);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    return (
-        <motion.nav
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className={clsx(
-                "fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b",
-                isScrolled
-                    ? "bg-brand-light/90 backdrop-blur-md border-brand-accent/20 py-4"
-                    : "bg-transparent border-transparent py-6"
-            )}
+  return (
+    <motion.header
+      initial={{ y: -30, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.55, ease: [0.2, 0.9, 0.2, 1] }}
+      className={clsx(
+        "fixed top-0 inset-x-0 z-50 border-b transition-all duration-300",
+        isScrolled
+          ? "bg-brand-dark/90 border-brand-line backdrop-blur-md"
+          : "bg-transparent border-transparent"
+      )}
+    >
+      <div className="max-w-7xl mx-auto px-5 md:px-10 h-20 flex items-center justify-between">
+        <Link href="/" className="font-serif text-4xl tracking-wide text-brand-paper leading-none">
+          MODCAST
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-8 text-sm uppercase tracking-[0.2em] text-brand-ink/80">
+          {links.map((link) => (
+            <Link key={link.href} href={link.href} className="hover:text-brand-signal transition-colors">
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="hidden md:flex items-center gap-4">
+          <button
+            type="button"
+            className="border border-brand-line rounded-full px-4 py-2 text-xs uppercase tracking-[0.2em] text-brand-ink/90 hover:border-brand-signal hover:text-brand-signal transition-colors"
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            className="flex items-center gap-2 border border-brand-line rounded-full px-4 py-2 text-xs uppercase tracking-[0.2em] text-brand-paper hover:border-brand-accent transition-colors"
+          >
+            <ShoppingCart className="w-4 h-4" /> Cart(0)
+          </button>
+        </div>
+
+        <button
+          type="button"
+          className="md:hidden text-brand-paper"
+          onClick={() => setMobileOpen((prev) => !prev)}
+          aria-label="Toggle menu"
         >
-            <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-                <Link href="/" className="font-serif text-2xl font-bold tracking-widest text-brand-dark">
-                    ASLFRAG
-                </Link>
+          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+      </div>
 
-                {/* Desktop Menu */}
-                <div className="hidden md:flex items-center space-x-8 text-sm uppercase tracking-widest font-sans font-medium">
-                    <Link href="/" className="hover:text-brand-accent transition-colors duration-300">
-                        Beranda
-                    </Link>
-                    <Link href="/about" className="hover:text-brand-accent transition-colors duration-300">
-                        Tentang
-                    </Link>
-                    <Link href="/catalog" className="hover:text-brand-accent transition-colors duration-300">
-                        Katalog
-                    </Link>
-                </div>
-
-                <div className="hidden md:flex items-center space-x-6">
-                    <button className="text-brand-dark hover:text-brand-accent transition-colors">
-                        <ShoppingBag className="w-5 h-5" />
-                    </button>
-                </div>
-
-                {/* Mobile menu toggle */}
-                <div className="md:hidden flex items-center">
-                    <button
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="text-brand-dark focus:outline-none"
-                    >
-                        {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                    </button>
-                </div>
-            </div>
-
-            {/* Mobile Menu Dropdown */}
-            {mobileMenuOpen && (
-                <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="md:hidden bg-brand-light border-base border-brand-accent/20 px-6 py-4 flex flex-col space-y-4 text-center mt-4"
-                >
-                    <Link href="/" onClick={() => setMobileMenuOpen(false)} className="py-2 hover:text-brand-accent text-sm tracking-widest font-sans uppercase">Beranda</Link>
-                    <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="py-2 hover:text-brand-accent text-sm tracking-widest font-sans uppercase">Tentang</Link>
-                    <Link href="/catalog" onClick={() => setMobileMenuOpen(false)} className="py-2 hover:text-brand-accent text-sm tracking-widest font-sans uppercase">Katalog</Link>
-                    <div className="py-2 flex justify-center">
-                        <button className="flex items-center space-x-2 text-brand-dark hover:text-brand-accent transition-colors">
-                            <ShoppingBag className="w-5 h-5" />
-                            <span className="text-sm tracking-widest uppercase">Keranjang (0)</span>
-                        </button>
-                    </div>
-                </motion.div>
-            )}
-        </motion.nav>
-    );
+      {mobileOpen && (
+        <div className="md:hidden px-5 pb-5 border-t border-brand-line bg-brand-card/95 backdrop-blur">
+          <div className="flex flex-col gap-3 pt-4 text-sm uppercase tracking-[0.18em] text-brand-ink">
+            {links.map((link) => (
+              <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className="py-2 hover:text-brand-signal transition-colors">
+                {link.label}
+              </Link>
+            ))}
+            <button
+              type="button"
+              className="mt-2 w-full border border-brand-line rounded-full px-4 py-3 text-xs uppercase tracking-[0.2em] text-brand-paper"
+            >
+              Cart(0)
+            </button>
+          </div>
+        </div>
+      )}
+    </motion.header>
+  );
 }

@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Bebas_Neue, Sora } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const sora = Sora({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sora",
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+const bebas = Bebas_Neue({
+  weight: ["400"],
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-bebas",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "ASLFRAG | Temukan Aroma Khas Anda",
-  description: "Wewangian mewah dirancang untuk mengekspresikan identitas, keanggunan, dan rasa percaya diri.",
+  title: "MODCAST | Diecast Collector Store",
+  description:
+    "Toko diecast premium untuk kolektor: rilisan terbaru, skala beragam, dan detail autentik.",
 };
 
 export default function RootLayout({
@@ -27,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="id" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-brand-light text-brand-dark selection:bg-brand-accent selection:text-brand-light overflow-x-hidden`}
+        className={`${sora.variable} ${bebas.variable} font-sans antialiased bg-brand-dark text-brand-ink selection:bg-brand-signal selection:text-brand-paper overflow-x-hidden`}
       >
         {children}
       </body>

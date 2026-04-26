@@ -1,99 +1,87 @@
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
-import Image from "next/image";
 
 export default function About() {
-    return (
-        <main className="bg-brand-light min-h-screen text-brand-dark selection:bg-brand-accent selection:text-brand-light overflow-x-hidden">
-            <Navbar />
+  return (
+    <main className="min-h-screen">
+      <Navbar />
 
-            {/* Hero */}
-            <section className="pt-48 pb-24 px-6 md:px-12 lg:px-24">
-                <div className="max-w-5xl mx-auto text-center">
-                    <AnimatedSection delay={0.1}>
-                        <h1 className="text-5xl md:text-8xl lg:text-9xl font-serif mb-8 tracking-widest leading-none">
-                            DI BALIK <br /> BOTOL.
-                        </h1>
-                    </AnimatedSection>
-                    <AnimatedSection delay={0.3}>
-                        <p className="font-sans text-brand-dark/80 text-lg md:text-xl font-light uppercase tracking-[0.2em]">
-                            Kisah ASLFRAG
-                        </p>
-                    </AnimatedSection>
-                </div>
-            </section>
+      <section className="pt-36 md:pt-44 px-5 md:px-10">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 items-end">
+          <AnimatedSection>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-brand-accent">About MODCAST</p>
+            <h1 className="mt-3 font-serif text-brand-paper text-[clamp(3rem,9vw,8rem)] leading-[0.9]">
+              BUILT BY
+              <br />
+              COLLECTORS,
+              <br />
+              FOR COLLECTORS.
+            </h1>
+            <p className="mt-6 max-w-xl text-sm md:text-base text-brand-ink/75 leading-relaxed">
+              Kami memulai dari komunitas kecil penggemar model car. Sekarang kami berkembang jadi toko kurasi diecast
+              dengan fokus pada kualitas casting, autentisitas, dan pengalaman belanja yang jelas.
+            </p>
+          </AnimatedSection>
 
-            {/* Parallax Image */}
-            <section className="py-24">
-                <div className="w-full h-[60vh] md:h-[80vh] relative overflow-hidden">
-                    <AnimatedSection className="w-full h-full">
-                        <Image
-                            src="/images/section1.jpeg"
-                            alt="Cerita Brand"
-                            fill
-                            className="object-cover mix-blend-luminosity opacity-80"
-                        />
-                    </AnimatedSection>
-                </div>
-            </section>
+          <AnimatedSection className="relative aspect-[4/5] rounded-[2rem] overflow-hidden border border-brand-line">
+            <Image src="/images/section1.jpeg" alt="MODCAST garage" fill className="object-cover" />
+          </AnimatedSection>
+        </div>
+      </section>
 
-            {/* Philosophy */}
-            <section className="py-32 px-6 md:px-12 lg:px-24 bg-brand-white text-brand-dark">
-                <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 md:gap-32">
-                    <div className="w-full md:w-1/3">
-                        <AnimatedSection>
-                            <h2 className="text-4xl md:text-6xl font-serif tracking-tight leading-tight sticky top-32">
-                                Filosofi Kami
-                            </h2>
-                        </AnimatedSection>
-                    </div>
-                    <div className="w-full md:w-2/3 space-y-12 font-sans text-xl md:text-2xl font-light leading-relaxed text-brand-dark/70">
-                        <AnimatedSection>
-                            <p>
-                                Di ASLFRAG, kami tidak sekadar mencampur bahan; kami menyusun lanskap emosional. Didirikan berdasarkan prinsip minimalisme dan keberanian tanpa kompromi, wewangian kami dirancang sebagai perpanjangan dari identitas Anda.
-                            </p>
-                        </AnimatedSection>
-                        <AnimatedSection>
-                            <p>
-                                Kami menyingkirkan yang tidak perlu. Di industri yang terobsesi dengan kebisingan, kami menemukan kekuatan dalam keheningan. Setiap nada dalam parfum kami memiliki tujuan yang jelas, menciptakan struktur arsitektur brutalis dari aroma.
-                            </p>
-                        </AnimatedSection>
-                    </div>
-                </div>
-            </section>
+      <section className="py-16 md:py-20 px-5 md:px-10">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-4">
+          {[
+            {
+              title: "Kurasi Ketat",
+              body: "Setiap model dipilih berdasarkan reputasi brand, kualitas material, dan nilai koleksi jangka panjang.",
+            },
+            {
+              title: "Deskripsi Transparan",
+              body: "Kami menulis detail kondisi, skala, dan fitur agar kolektor tahu persis apa yang dibeli.",
+            },
+            {
+              title: "Packing Aman",
+              body: "Pengemasan berlapis dengan perlindungan display box untuk meminimalkan risiko selama pengiriman.",
+            },
+          ].map((item, index) => (
+            <AnimatedSection
+              key={item.title}
+              delay={index * 0.06}
+              className="rounded-2xl border border-brand-line bg-brand-card/75 p-6"
+            >
+              <h2 className="font-serif text-4xl text-brand-paper leading-none">{item.title}</h2>
+              <p className="mt-3 text-sm text-brand-ink/70 leading-relaxed">{item.body}</p>
+            </AnimatedSection>
+          ))}
+        </div>
+      </section>
 
-            {/* Craftsmanship */}
-            <section className="py-32 px-6 md:px-12 lg:px-24 border-t border-brand-dark/20 bg-brand-dark text-brand-light">
-                <div className="max-w-7xl mx-auto">
-                    <AnimatedSection>
-                        <h2 className="text-5xl md:text-7xl font-serif text-center mb-32 tracking-wider">
-                            Keahlian Tangan
-                        </h2>
-                    </AnimatedSection>
+      <section className="pb-20 px-5 md:px-10">
+        <AnimatedSection className="max-w-7xl mx-auto rounded-[2rem] border border-brand-line bg-brand-card p-8 md:p-10 grid lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-brand-accent">Roadmap 2026</p>
+            <h2 className="mt-3 font-serif text-[clamp(2.3rem,6vw,5rem)] leading-[0.95] text-brand-paper">
+              MORE LIMITED
+              <br />
+              DROPS, MORE
+              <br />
+              COLLABS.
+            </h2>
+            <p className="mt-4 text-sm text-brand-ink/70 leading-relaxed max-w-md">
+              Kami sedang menambah lini pre-order, fitur wishlist, dan update stok real-time supaya proses berburu model
+              favorit jadi makin nyaman.
+            </p>
+          </div>
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-brand-line">
+            <Image src="/images/model5.jpeg" alt="Roadmap" fill className="object-cover" />
+          </div>
+        </AnimatedSection>
+      </section>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-32 items-center">
-                        <AnimatedSection className="order-2 md:order-1 font-sans text-lg md:text-xl text-brand-muted leading-relaxed font-light space-y-12">
-                            <p>
-                                Bahan-bahan kami bersumber dari lokasi paling terpencil dan murni. Dari hutan gaharu di Asia Tenggara hingga ladang mawar di Grasse, kami tidak menerima apa pun selain puncak kualitas tertinggi.
-                            </p>
-                            <p>
-                                Setiap botol dituang dengan tangan, disegel dengan niat, dan dibiarkan bercampur hingga formula mencapai keseimbangan sempurna. Hasilnya bukan produksi massal, melainkan buatan tangan yang teliti.
-                            </p>
-                        </AnimatedSection>
-                        <AnimatedSection className="order-1 md:order-2 relative aspect-[3/4] w-full max-w-md mx-auto">
-                            <Image
-                                src="/images/model4.jpeg"
-                                alt="Keahlian Tangan"
-                                fill
-                                className="object-cover"
-                            />
-                        </AnimatedSection>
-                    </div>
-                </div>
-            </section>
-
-            <Footer />
-        </main>
-    );
+      <Footer />
+    </main>
+  );
 }

@@ -1,57 +1,57 @@
 import Link from "next/link";
-import { Instagram, Music2, MessageCircle } from "lucide-react";
+import { Instagram, MessageCircle, Youtube } from "lucide-react";
+
+const menu = [
+  { href: "/", label: "Home" },
+  { href: "/catalog", label: "Catalog" },
+  { href: "/about", label: "About" },
+];
 
 export default function Footer() {
-    return (
-        <footer className="bg-brand-dark border-t border-brand-dark pt-24 pb-12 px-6 md:px-12 lg:px-24">
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
-                <div className="max-w-sm">
-                    <Link href="/" className="font-serif text-4xl md:text-5xl font-bold tracking-widest text-brand-light block mb-6 outline-none">
-                        ASLFRAG.
-                    </Link>
-                    <p className="text-brand-muted font-sans text-sm md:text-base leading-relaxed">
-                        Wewangian mewah dirancang untuk mengekspresikan identitas, keanggunan, dan rasa percaya diri. Brutalis namun minimalis.
-                    </p>
-                </div>
+  return (
+    <footer className="border-t border-brand-line px-5 md:px-10 pt-14 pb-10 bg-brand-dark/95">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-10">
+        <div>
+          <Link href="/" className="font-serif text-5xl leading-none text-brand-paper tracking-wide">
+            MODCAST
+          </Link>
+          <p className="mt-4 text-sm text-brand-ink/65 leading-relaxed max-w-xs">
+            Marketplace diecast untuk kolektor yang suka detail, keaslian, dan lini mobil ikonik lintas generasi.
+          </p>
+        </div>
 
-                <div className="flex flex-col md:flex-row gap-12 md:gap-24">
-                    <div className="font-sans">
-                        <h4 className="text-brand-light font-bold tracking-wider uppercase mb-6 text-sm">Navigasi</h4>
-                        <ul className="space-y-4 text-sm tracking-wider text-brand-muted">
-                            <li><Link href="/" className="hover:text-brand-light transition-colors block">Beranda</Link></li>
-                            <li><Link href="/about" className="hover:text-brand-light transition-colors block">Tentang Kami</Link></li>
-                            <li><Link href="/catalog" className="hover:text-brand-light transition-colors block">Katalog</Link></li>
-                            <li><Link href="/contact" className="hover:text-brand-light transition-colors block">Kontak</Link></li>
-                        </ul>
-                    </div>
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-brand-accent">Navigation</p>
+          <div className="mt-4 flex flex-col gap-3 text-sm uppercase tracking-[0.16em] text-brand-ink/80">
+            {menu.map((item) => (
+              <Link key={item.href} href={item.href} className="hover:text-brand-signal transition-colors">
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
 
-                    <div className="font-sans">
-                        <h4 className="text-brand-light font-bold tracking-wider uppercase mb-6 text-sm">Sosial</h4>
-                        <ul className="space-y-4 text-sm tracking-wider text-brand-muted">
-                            <li>
-                                <a href="#" className="flex items-center gap-3 hover:text-brand-light transition-colors">
-                                    <Instagram className="w-4 h-4" /> Instagram
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="flex items-center gap-3 hover:text-brand-light transition-colors">
-                                    <Music2 className="w-4 h-4" /> TikTok
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="flex items-center gap-3 hover:text-brand-light transition-colors">
-                                    <MessageCircle className="w-4 h-4" /> WhatsApp
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-brand-accent">Community</p>
+          <div className="mt-4 flex gap-3">
+            {[Instagram, Youtube, MessageCircle].map((Icon, idx) => (
+              <a
+                key={idx}
+                href="#"
+                className="h-10 w-10 rounded-full border border-brand-line flex items-center justify-center text-brand-ink/80 hover:text-brand-signal hover:border-brand-signal transition-colors"
+              >
+                <Icon className="w-4 h-4" />
+              </a>
+            ))}
+          </div>
+          <p className="mt-6 text-sm text-brand-ink/65">support@modcast.com</p>
+        </div>
+      </div>
 
-            <div className="max-w-7xl mx-auto mt-24 pt-8 border-t border-brand-muted/20 flex flex-col md:flex-row justify-between items-center text-xs font-sans text-brand-muted/60 tracking-widest uppercase">
-                <p>&copy; {new Date().getFullYear()} ASLFRAG. Semua hak dilindungi undang-undang.</p>
-                <p className="mt-4 md:mt-0">Pengalaman Premium.</p>
-            </div>
-        </footer>
-    );
+      <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-brand-line flex flex-col md:flex-row justify-between gap-2 text-[11px] uppercase tracking-[0.17em] text-brand-ink/50">
+        <p>{new Date().getFullYear()} MODCAST. All Rights Reserved.</p>
+        <p>Built For Collectors.</p>
+      </div>
+    </footer>
+  );
 }

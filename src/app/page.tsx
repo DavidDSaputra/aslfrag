@@ -1,99 +1,141 @@
+import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import ProductCard from "@/components/ProductCard";
+import ProductCarousel from "@/components/ProductCarousel";
+import DiecastDetails from "@/components/DiecastDetails";
+import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
-import ProductCarousel from "@/components/ProductCarousel";
-import Hero from "@/components/Hero";
-import FragranceNotes from "@/components/FragranceNotes";
-import Testimonials from "@/components/Testimonials";
-import Image from "next/image";
-import Link from "next/link";
-import { products } from "@/data/products";
-import ProductCard from "@/components/ProductCard";
+import { prisma } from "@/lib/prisma";
 
-export default function Home() {
-  const featured = products.slice(0, 2);
+const categories = [
+  {
+    label: "JDM Icons",
+    description: "Skyline, Supra, RX-7, dan legenda jalanan Jepang.",
+    image: "/images/model7.jpeg",
+  },
+  {
+    label: "Muscle Era",
+    description: "Raw power klasik Amerika untuk display bold.",
+    image: "/images/model8.jpeg",
+  },
+  {
+    label: "Exotic Vault",
+    description: "Hypercar dan supercar presisi kelas kolektor.",
+    image: "/images/model9.jpeg",
+  },
+];
+
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const dbProducts = await prisma.product.findMany({
+    take: 6,
+    orderBy: { createdAt: "desc" },
+  });
+
+  const featured = dbProducts.map((product) => ({
+    ...product,
+    features: product.features.split(",").map((f) => f.trim()).filter(Boolean),
+  }));
 
   return (
-    <main className="bg-brand-light min-h-screen selection:bg-brand-accent selection:text-brand-light">
-      <Navbar />
+    <main className="min-h-screen">
+      <div className="bg-brand-signal text-brand-dark text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-center py-2 px-3">
+        Free shipping Indonesia untuk order di atas Rp 1.500.000
+      </div>
 
+      <Navbar />
       <Hero />
 
-      {/* Brand Philosophy */}
-      <section className="py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-brand-white text-brand-dark">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 lg:gap-32 items-center">
-          <div className="w-full md:w-1/2">
-            <AnimatedSection>
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif mb-8 leading-tight tracking-tight">
-                The Architecture <br /> of Scent.
-              </h2>
-              <p className="font-sans text-brand-dark/70 text-base md:text-lg leading-relaxed mb-12">
-                We believe that a fragrance is more than a scent—it is an invisible garment. Our creations are bold, deeply rooted in minimalist aesthetics, yet rich in their complexity. Made for those who do not just wear a perfume, but inhabit it.
-              </p>
-              <Link href="/about" className="font-sans tracking-widest uppercase text-xs border-b border-brand-accent/20 pb-2 hover:text-brand-accent hover:border-brand-accent transition-colors duration-300">
-                Read our story
-              </Link>
+      <section className="px-5 md:px-10 py-8 md:py-12">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-4">
+          {categories.map((item, index) => (
+            <AnimatedSection key={item.label} delay={index * 0.08} className="relative rounded-2xl overflow-hidden border border-brand-line aspect-[5/4]">
+              <Image src={item.image} alt={item.label} fill className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/95 via-brand-dark/35 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <p className="font-serif text-4xl text-brand-paper leading-none">{item.label}</p>
+                <p className="mt-2 text-xs text-brand-ink/75">{item.description}</p>
+              </div>
             </AnimatedSection>
-          </div>
-          <div className="w-full md:w-1/2">
-            <AnimatedSection className="relative aspect-[4/5] w-full group overflow-hidden">
-              <Image
-                src="/images/section1.jpeg"
-                alt="Filosofi Brand"
-                fill
-                className="object-cover transition-transform duration-[2s] group-hover:scale-105"
-              />
-            </AnimatedSection>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* Featured Collection */}
-      <section className="py-32 md:py-48 px-6 md:px-12 lg:px-24 bg-brand-light">
+      <section className="px-5 md:px-10 py-16 md:py-20">
         <div className="max-w-7xl mx-auto">
-          <AnimatedSection>
-            <div className="flex justify-between items-end mb-16 border-b border-brand-accent/20 pb-8">
-              <h2 className="text-4xl md:text-6xl font-serif text-brand-dark">Featured</h2>
-              <Link href="/catalog" className="hidden md:block font-sans tracking-[0.2em] uppercase text-xs text-brand-accent hover:text-brand-dark transition-colors duration-300">
-                View All Collection
-              </Link>
+          <AnimatedSection className="flex flex-wrap items-end justify-between gap-4 mb-8 md:mb-10">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.2em] text-brand-accent">Curated Selection</p>
+              <h2 className="mt-2 font-serif text-brand-paper text-[clamp(2.2rem,6vw,5rem)] leading-none">Featured Drops</h2>
             </div>
+            <Link
+              href="/catalog"
+              className="rounded-full border border-brand-line px-6 py-2 text-xs uppercase tracking-[0.2em] text-brand-ink/80 hover:border-brand-signal hover:text-brand-signal transition-colors"
+            >
+              Browse All
+            </Link>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-white/5 border-y border-white/5">
             {featured.map((product, index) => (
-              <AnimatedSection key={product.id} delay={index * 0.2}>
+              <AnimatedSection key={product.id} delay={index * 0.04} className="bg-brand-light">
                 <ProductCard product={product} />
               </AnimatedSection>
             ))}
           </div>
-
-          <div className="mt-16 text-center md:hidden">
-            <Link href="/catalog" className="inline-block border border-brand-accent/20 text-brand-dark px-8 py-4 font-sans tracking-widest uppercase text-xs hover:border-brand-accent hover:text-brand-accent transition-colors duration-300">
-              View All Collection
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Product Carousel */}
-      <ProductCarousel />
+      <ProductCarousel products={featured} />
 
-      <FragranceNotes />
+      <section className="px-5 md:px-10 py-14 md:py-20">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-3 md:gap-4">
+          {[
+            { label: "Autenticity Check", value: "100%" },
+            { label: "Collectors Served", value: "11,240" },
+            { label: "Avg Dispatch", value: "< 24h" },
+            { label: "Exclusive Releases", value: "2x / Week" },
+          ].map((metric, index) => (
+            <AnimatedSection
+              key={metric.label}
+              delay={index * 0.05}
+              className="rounded-2xl border border-brand-line bg-brand-card/80 p-5"
+            >
+              <p className="font-serif text-5xl text-brand-paper leading-none">{metric.value}</p>
+              <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-brand-ink/65">{metric.label}</p>
+            </AnimatedSection>
+          ))}
+        </div>
+      </section>
+
+      <DiecastDetails />
       <Testimonials />
 
-      {/* Visual Break / CTA Banner */}
-      <section className="py-48 px-6 text-center bg-brand-accent border-y border-brand-accent relative overflow-hidden flex items-center justify-center">
-        <AnimatedSection className="relative z-10 max-w-3xl">
-          <h2 className="text-4xl md:text-7xl font-serif text-brand-light mb-10 leading-tight">
-            Temukan Aroma Khas Anda
+      <section className="px-5 md:px-10 pb-20">
+        <AnimatedSection className="max-w-7xl mx-auto rounded-[2rem] border border-brand-line bg-gradient-to-r from-brand-card via-brand-dark to-brand-card p-8 md:p-12 text-center">
+          <p className="text-[11px] uppercase tracking-[0.2em] text-brand-accent">Join The Collector List</p>
+          <h2 className="mt-4 font-serif text-[clamp(2.5rem,6vw,5.8rem)] leading-[0.92] text-brand-paper">
+            GET ALERTS FOR
+            <br />
+            LIMITED RELEASES
           </h2>
-          <Link
-            href="/catalog"
-            className="inline-block bg-brand-light text-brand-accent px-12 py-5 font-sans tracking-[0.2em] text-xs uppercase hover:bg-brand-dark hover:text-brand-light transition-all duration-500 shadow-xl"
-          >
-            Beli Sekarang
-          </Link>
+          <div className="mt-7 flex flex-col sm:flex-row justify-center gap-3">
+            <input
+              type="email"
+              placeholder="email@collector.com"
+              className="w-full sm:w-80 rounded-full border border-brand-line bg-brand-dark px-5 py-3 text-sm text-brand-paper placeholder:text-brand-ink/45 focus:outline-none focus:border-brand-accent"
+            />
+            <button
+              type="button"
+              className="rounded-full bg-brand-signal text-brand-dark px-7 py-3 text-xs uppercase font-semibold tracking-[0.2em] hover:bg-orange-400 transition-colors"
+            >
+              Subscribe
+            </button>
+          </div>
         </AnimatedSection>
       </section>
 

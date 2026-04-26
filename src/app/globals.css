@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #FFF2F2;
-  --foreground: #2A3158;
+  --background: #09090b;
+  --foreground: #fafafa;
 }
 
 body {
@@ -18,20 +18,19 @@ body {
   }
 }
 
-/* Scrollbar styling for luxury feel */
+/* Scrollbar styling for diecast theme */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #FFF2F2;
+  background: #09090b;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #A9B4D9;
-  /* lighter accent for thumb */
+  background: #27272a;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7886C7;
+  background: #dc2626;
 }

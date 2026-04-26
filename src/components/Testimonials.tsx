@@ -1,47 +1,52 @@
 import AnimatedSection from "./AnimatedSection";
 
 const testimonials = [
-    {
-        quote: "ASLFRAG tidak hanya membuat parfum; mereka menciptakan pengalaman. Noir Absolute telah menjadi aroma khas saya selama dua tahun.",
-        author: "Elena R.",
-        role: "Direktur Kreatif"
-    },
-    {
-        quote: "Kompleksitas Lumière tak tertandingi. Berubah sepanjang hari, selalu mengungkapkan sesuatu yang baru.",
-        author: "James M.",
-        role: "Arsitek"
-    },
-    {
-        quote: "Presentasi yang memukau dan wewangian yang lebih memukau lagi. Pendekatan brutalis pada kemasan sangat cocok dengan aroma yang berani.",
-        author: "Sophia K.",
-        role: "Editor Mode"
-    }
+  {
+    quote:
+      "Packing aman, pengiriman cepat, dan model yang datang persis seperti preview. Detail casting-nya rapih banget.",
+    author: "Rizky M.",
+    role: "Collector - Bandung",
+  },
+  {
+    quote:
+      "Aku cari edisi JDM sulit, dan akhirnya nemu di sini. Kurasi produknya terasa dibuat oleh sesama kolektor.",
+    author: "Nadira F.",
+    role: "Hobbyist - Jakarta",
+  },
+  {
+    quote:
+      "Halaman katalog jelas, filter skala membantu, dan kondisi barang sesuai deskripsi. Recommended untuk display serious.",
+    author: "Andre S.",
+    role: "Model Builder - Surabaya",
+  },
 ];
 
 export default function Testimonials() {
-    return (
-        <section className="py-32 px-6 md:px-12 bg-brand-muted/20 border-t border-brand-accent/10">
-            <div className="max-w-7xl mx-auto">
-                <AnimatedSection>
-                    <h2 className="text-3xl md:text-5xl font-serif text-brand-dark text-center mb-24">
-                        Kata Mereka Tentang Kami
-                    </h2>
-                </AnimatedSection>
+  return (
+    <section className="py-20 md:py-28 px-5 md:px-10">
+      <div className="max-w-7xl mx-auto">
+        <AnimatedSection>
+          <h2 className="font-serif text-center text-brand-paper text-[clamp(2.4rem,6vw,5rem)] leading-none">
+            COLLECTOR NOTES
+          </h2>
+        </AnimatedSection>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-                    {testimonials.map((item, i) => (
-                        <AnimatedSection key={i} delay={i * 0.2} className="border-l border-brand-accent/30 pl-8 font-sans">
-                            <p className="text-brand-dark text-lg md:text-xl font-light italic mb-8 leading-relaxed">
-                                &quot;{item.quote}&quot;
-                            </p>
-                            <div>
-                                <p className="font-bold text-sm tracking-widest uppercase">{item.author}</p>
-                                <p className="text-brand-dark/60 text-xs tracking-widest uppercase mt-1">{item.role}</p>
-                            </div>
-                        </AnimatedSection>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+        <div className="mt-10 grid md:grid-cols-3 gap-4 md:gap-5">
+          {testimonials.map((item, index) => (
+            <AnimatedSection
+              key={item.author}
+              delay={index * 0.08}
+              className="rounded-2xl border border-brand-line bg-brand-card/80 p-6"
+            >
+              <p className="text-sm md:text-base text-brand-ink/85 leading-relaxed">&quot;{item.quote}&quot;</p>
+              <div className="mt-8">
+                <p className="font-semibold text-brand-paper">{item.author}</p>
+                <p className="text-[11px] uppercase tracking-[0.15em] text-brand-ink/55 mt-1">{item.role}</p>
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }

@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  image       String
+  features    String   // Stored as comma-separated string, e.g., "Metal Base, Real Riders"
+  description String
+  price       Float
+  category    String
+  scale       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
