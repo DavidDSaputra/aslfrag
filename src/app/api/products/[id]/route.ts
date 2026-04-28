@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 // GET single product
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const product = await prisma.product.findUnique({ where: { id } });
 
     if (!product) {
@@ -27,10 +29,10 @@ export async function GET(
 // UPDATE product
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const body = await request.json();
 
     const updated = await prisma.product.update({
@@ -56,10 +58,10 @@ export async function PUT(
 // DELETE product
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     await prisma.product.delete({ where: { id } });
     return NextResponse.json({ message: "Product deleted" });
   } catch (error) {
