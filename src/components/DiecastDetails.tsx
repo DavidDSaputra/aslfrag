@@ -11,19 +11,19 @@ const detailsData = {
     title: "Eksterior Akurat",
     description:
       "Proporsi bodi, sudut panel, dan detail lampu disusun untuk meniru versi asli mobilnya. Finishing cat dibuat multi-layer agar tampil realistis di display rack.",
-    image: "/images/model3.jpeg",
+    image: "/images/detail_exterior.png",
   },
   interior: {
     title: "Interior Mini Premium",
     description:
       "Dashboard, setir, jok, hingga cluster instrumen ditata presisi. Pada beberapa model, pintu dan kap dapat dibuka untuk menampilkan detail kabin secara utuh.",
-    image: "/images/model2.jpeg",
+    image: "/images/detail_interior.png",
   },
   engineering: {
     title: "Sasis Dan Mesin",
     description:
       "Chassis detail, underbody line, dan mesin mini ditampilkan dengan toleransi rapat. Kelas high-end kami menghadirkan part bergerak untuk pengalaman koleksi lebih hidup.",
-    image: "/images/model6.jpeg",
+    image: "/images/detail_engine.png",
   },
 };
 

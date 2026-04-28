@@ -5,8 +5,8 @@ export interface Product {
     features: string[]; // previously notes
     description: string;
     price: number;
-    category: "JDM" | "Muscle" | "Exotic" | "Classic";
-    scale: "1:64" | "1:43" | "1:18"; // previously gender
+    category: string;
+    scale: string; // previously gender
 }
 
 export const products: Product[] = [

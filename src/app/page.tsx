@@ -14,17 +14,17 @@ const categories = [
   {
     label: "JDM Icons",
     description: "Skyline, Supra, RX-7, dan legenda jalanan Jepang.",
-    image: "/images/model7.jpeg",
+    image: "/images/cat_jdm.png",
   },
   {
     label: "Muscle Era",
     description: "Raw power klasik Amerika untuk display bold.",
-    image: "/images/model8.jpeg",
+    image: "/images/cat_muscle.png",
   },
   {
     label: "Exotic Vault",
     description: "Hypercar dan supercar presisi kelas kolektor.",
-    image: "/images/model9.jpeg",
+    image: "/images/cat_exotic.png",
   },
 ];
 

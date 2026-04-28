@@ -11,12 +11,12 @@ const highlights = [
   {
     title: "Tentang arti nomor 23 pada livery mobil modifikasi Liberty Walk",
     date: "06 Maret 2024",
-    image: "/images/model1.jpeg",
+    image: "/images/blog1.png",
   },
   {
     title: "Fakta tentang dunia mobil yang diketahui setelah bermain diecast",
     date: "02 Maret 2024",
-    image: "/images/model4.jpeg",
+    image: "/images/blog2.png",
   },
 ];
 
@@ -51,7 +51,7 @@ export default function Hero() {
 
         <div className="mt-10 grid lg:grid-cols-[1.2fr_0.9fr] gap-8 items-start">
           <AnimatedSection className="relative aspect-[4/3] overflow-hidden border border-brand-line">
-            <Image src="/images/section.jpeg" alt="MODCAST hero" fill priority className="object-cover" />
+            <Image src="/images/section.png" alt="MODCAST hero" fill priority className="object-cover" />
           </AnimatedSection>
 
           <div className="space-y-7">

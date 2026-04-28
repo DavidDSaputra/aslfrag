@@ -26,7 +26,7 @@ export default function About() {
           </AnimatedSection>
 
           <AnimatedSection className="relative aspect-[4/5] rounded-[2rem] overflow-hidden border border-brand-line">
-            <Image src="/images/section1.jpeg" alt="MODCAST garage" fill className="object-cover" />
+            <Image src="/images/collection.png" alt="MODCAST garage" fill className="object-cover" />
           </AnimatedSection>
         </div>
       </section>
@@ -76,7 +76,7 @@ export default function About() {
             </p>
           </div>
           <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-brand-line">
-            <Image src="/images/model5.jpeg" alt="Roadmap" fill className="object-cover" />
+            <Image src="/images/detail_exterior.png" alt="Roadmap" fill className="object-cover" />
           </div>
         </AnimatedSection>
       </section>
